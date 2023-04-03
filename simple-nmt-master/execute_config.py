@@ -34,24 +34,24 @@ def orig_config():
 #def init_config(batch_size,train,valid,n_epochs,gpu_id):
 def init_config():
     return {
-              'load_fn'             : True
+              'load_fn'             : False
             , 'model_fn'            : 'model.pth'
-            , 'train'               : 'data/corpus.shuf.train.tok.bpe' # train
-            , 'valid'               : 'data/corpus.shuf.valid.tok.bpe' # valid
+            , 'train'               : 'data/corpus.shuf.train.tok.bpe' # 'data/corpus.shuf.train.tok.bpe100'
+            , 'valid'               : 'data/corpus.shuf.valid.tok.bpe' # 'data/corpus.shuf.valid.tok.bpe100'
             , 'lang'                : 'enko'
-            , 'gpu_id'              : 0 # gpu_id
-            , 'off_autocast'        : False # False if gpu_id >= 0 else True
-            , 'batch_size'          : 4 # 64 # batch_size
-            , 'n_epochs'            : 30 # n_epochs
-            , 'verbose'             : 2
+            , 'gpu_id'              : 0 # 0 # gpu_id
+            , 'off_autocast'        : False # False # False if gpu_id >= 0 else True
+            , 'batch_size'          : 8 # 64 # batch_size
             , 'init_epoch'          : 1
-            , 'max_length'          : 100
+            , 'n_epochs'            : 10 # n_epochs
+            , 'epoch_sleep_sec'     : 60*5
+            , 'iteration_per_update': 4 #32  # 2
+            , 'max_length'          : 64 #100
             , 'dropout'             : .2
             , 'word_vec_size'       : 512
             , 'hidden_size'         : 768
             , 'n_layers'            : 4
             , 'max_grad_norm'       : 1e+8
-            , 'iteration_per_update': 2
             , 'lr'                  : 1e-3
             , 'lr_step'             : 0
             , 'use_adam'            : True
@@ -63,28 +63,30 @@ def init_config():
             , 'rl_reward'           : 'gleu'
             , 'use_transformer'     : True # False
             , 'n_splits'            : 8
+            , 'verbose': 2
     }
 
-def continue_config(batch_size, load_fn, init_epoch, n_epochs, gpu_id):
+#def continue_config(batch_size, load_fn, init_epoch, n_epochs, gpu_id):
+def continue_config():
     return {
-              'load_fn'             : load_fn
+              'load_fn'             : 'model_064_02_2.49-12.02_2.41-11.18_pth'
             , 'model_fn'            : 'NA'
             , 'train'               : 'NA'
             , 'valid'               : 'NA'
             , 'lang'                : 'NA'
-            , 'gpu_id'              : gpu_id
-            , 'off_autocast'        : False if gpu_id >= 0 else True
-            , 'batch_size'          : batch_size
-            , 'n_epochs'            : n_epochs
-            , 'verbose'             : 'NA'
-            , 'init_epoch'          : init_epoch
+            , 'gpu_id'              : 'NA'
+            , 'off_autocast'        : 'NA'
+            , 'batch_size'          : 'NA'
+            , 'iteration_per_update': 'NA'
+            , 'init_epoch'          : 3
+            , 'n_epochs'            : 10
+            , 'epoch_sleep_sec'     : 'NA'
             , 'max_length'          : 'NA'
             , 'dropout'             : 'NA'
             , 'word_vec_size'       : 'NA'
             , 'hidden_size'         : 'NA'
             , 'n_layers'            : 'NA'
             , 'max_grad_norm'       : 'NA'
-            , 'iteration_per_update': 'NA'
             , 'lr'                  : 'NA'
             , 'lr_step'             : 'NA'
             , 'use_adam'            : 'NA'
@@ -96,14 +98,15 @@ def continue_config(batch_size, load_fn, init_epoch, n_epochs, gpu_id):
             , 'rl_reward'           : 'NA'
             , 'use_transformer'     : 'NA'
             , 'n_splits'            : 'NA'
+            , 'verbose'             : 'NA'
     }
 
 def translate_config():
     return {
-              'model_fn'            : './weight/transformer/model_004_01_nan-nan_nan-nan_pth' # './weight/seq2seq/model_064_16_1.53-4.62_1.63-5.09_pth' # model_fn
+              'model_fn'            : './model_064_02_2.49-12.02_2.41-11.18_pth ' # './weight/seq2seq/model_064_16_1.53-4.62_1.63-5.09_pth' # model_fn
             , 'gpu_id'              : -1 # gpu_id
-            , 'batch_size'          : 4 # 64 # batch_size
-            , 'max_length'          : 255
+            , 'batch_size'          : 64 # 64 # batch_size
+            , 'max_length'          : 64
             , 'n_best'              : 1
             , 'beam_size'           : 5 # 5
             , 'length_penalty'      : 1.2

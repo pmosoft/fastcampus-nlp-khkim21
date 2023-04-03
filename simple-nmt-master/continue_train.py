@@ -59,7 +59,8 @@ if __name__ == '__main__':
     # config = define_argparser(is_continue=True)
 
     from argparse import Namespace
-    config = cfg.continue_config(batch_size=64, load_fn='model_064_16_1.53-4.62_1.63-5.09_pth', init_epoch=17, n_epochs=20, gpu_id=-1)
+    #config = cfg.continue_config(batch_size=64, load_fn='model_064_16_1.53-4.62_1.63-5.09_pth', init_epoch=17, n_epochs=20, gpu_id=-1)
+    config = cfg.continue_config()
     config = Namespace(**config)
     continue_main(config, main)
   

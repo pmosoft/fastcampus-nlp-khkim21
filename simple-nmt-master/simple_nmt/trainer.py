@@ -43,6 +43,7 @@ class MaximumLikelihoodEstimationEngine(Engine):
     def train(engine, mini_batch):
         # You have to reset the gradients of all model parameters
         # before to take another step in gradient descent.
+
         engine.model.train()
         print('\nengine.state.iteration=',engine.state.iteration)
         if engine.state.iteration % engine.config.iteration_per_update == 1 or \
@@ -154,6 +155,7 @@ class MaximumLikelihoodEstimationEngine(Engine):
         validation_metric_names = ['loss', 'ppl'],
         verbose=VERBOSE_BATCH_WISE,
     ):
+
         # Attaching would be repaeted for serveral metrics.
         # Thus, we can reduce the repeated codes by using this function.
         def attach_running_average(engine, metric_name):
@@ -216,6 +218,11 @@ class MaximumLikelihoodEstimationEngine(Engine):
 
     @staticmethod
     def save_model(engine, train_engine, config, src_vocab, tgt_vocab):
+
+        import time
+        print(f"Sleep {config.epoch_sleep_sec} seconds from now on...")
+        time.sleep(config.epoch_sleep_sec)
+
         avg_train_loss = train_engine.state.metrics['loss']
         avg_valid_loss = engine.state.metrics['loss']
 
